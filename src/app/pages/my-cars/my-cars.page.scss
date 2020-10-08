@@ -1,0 +1,25 @@
+.empty-list {
+   text-align: center;
+}
+
+:host {
+   ion-content {
+       --background: var(--ion-color-light);
+   }
+
+   ion-item {
+       border-radius: 5px;
+   }
+
+   ion-card {
+       border-radius: 5px;
+   }
+
+   .loadingCard {
+       height: 150px;
+   }
+
+   .loadedCard {
+       height: fit-content;
+   }
+}

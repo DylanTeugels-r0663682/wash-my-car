@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref='/tabs/my-cars'></ion-back-button>
+    </ion-buttons>
+    <ion-title>Car Detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="loaded">
+  <img [src]="imageURL" style="width: max-content; max-height: 350px; overflow: hidden;" *ngIf="imageURL" alt="This is the image">
+
+  <ion-item>
+    <ion-label>Car</ion-label>
+    <ion-text>{{car.carBrand}} {{car.carModel}}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label>Owner</ion-label>
+    <ion-text>{{ owner.email }}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label>City</ion-label>
+    <ion-text>{{ car.address.city }}</ion-text>
+  </ion-item>
+  <ion-item>
+    <ion-label>Date + Time</ion-label>
+    <ion-text>{{car.date}} {{ car.time }}</ion-text>
+  </ion-item>
+
+  <ion-button expand="block" type="submit" (click)="applyConfirm()">Apply</ion-button>
+
+</ion-content>

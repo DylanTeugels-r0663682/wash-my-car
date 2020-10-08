@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title>Calendar</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button routerLink="/tabs/calendar/requests">
+        <ion-icon slot="icon-only" name="notifications"></ion-icon>
+        <ion-badge>{{count}}</ion-badge>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!--
+<ion-content>
+  <ion-card *ngFor="let wash of washes">
+    <ion-item>{{wash.id}}</ion-item>
+  </ion-card>
+</ion-content>
+-->
+
+<ion-content>
+  <ion-segment (ionChange)="segmentChanged($event)" value="washes">
+    <ion-segment-button value="washes">
+      <ion-label>Your washes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="applies">
+      <ion-label>Your applies</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="segment">
+    <div *ngIf="!washes || washes.length == 0" class="empty-list" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+      <p>No washes yet...</p>
+    </div>
+    <ion-card *ngFor="let wash of washes" color="primary">
+      <ion-item>
+        Your car ({{wash.car.carBrand | titlecase}} {{wash.car.carModel | titlecase}}) will get washed on {{wash.car.date}} at {{wash.car.time}}.
+      </ion-item>
+      <ion-item>
+        The amount you need to pay the washer ({{wash.washer | titlecase}}) is {{wash.car.price | currency: "EUR"}}.
+      </ion-item>
+      <ion-button color="dark" (click)="tryGoReviewPage(wash.washerId, wash.id, wash.car.id)">Finish</ion-button>
+    </ion-card>
+  </div>
+  <div *ngIf="!segment">
+    <div *ngIf="!applies || applies.length == 0" class="empty-list" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+      <p>No applies yet...</p>
+    </div>
+    <ion-card *ngFor="let apply of applies" color="primary">
+      <ion-item>You have a car to wash: ({{apply.car.carBrand | titlecase}} {{apply.car.carModel | titlecase}})!
+      </ion-item>
+      <ion-item>
+        You will find the car here: {{apply.car.address.city}} {{apply.car.address.street}} {{apply.car.address.number}}
+      </ion-item>
+      <ion-item>
+        The date and time the car should be washed is {{apply.car.date}} {{apply.car.time}}.
+      </ion-item>
+        <ion-item>After completion you will be paid {{apply.car.price | currency: 'EUR'}}!</ion-item>
+    </ion-card>
+  </div>
+
+</ion-content>
+

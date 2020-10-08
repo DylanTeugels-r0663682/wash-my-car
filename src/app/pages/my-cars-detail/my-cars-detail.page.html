@@ -1,0 +1,163 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref='/tabs/my-cars'></ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">My Cars</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)='deleteCar(car.id)'>
+        <ion-icon slot="icon-only" name="trash"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="loaded">
+
+  <img [src]="imageURL" style="width: max-content; max-height: 350px; overflow: hidden;" *ngIf="imageURL" alt="This is the image">
+
+
+  <form class="form" [formGroup]="validations_form" (ngSubmit)="updateCar(validations_form)">
+
+    <!--carbrand-->
+    <ion-item>
+      <ion-label position="floating" color="primary">Car Brand</ion-label>
+      <ion-select type="text" formControlName="carBrand" [(ngModel)]="carBrand" (ionChange)="changeBrand($event.target.value)" placeholder="Choose Brand ...">
+        <ion-select-option *ngFor="let brand of brands">{{brand.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.carBrand">
+        <div class="error-message"
+        *ngIf="validations_form.get('carBrand').hasError(validation.type) && (validations_form.get('carBrand').dirty || validations_form.get('carBrand').touched)">
+        {{ validation.message }}
+      </div>
+    </ng-container>
+  </div>
+
+  <!--carmodel-->
+  <ion-item>
+    <ion-label position="floating" color="primary">Car Model</ion-label>
+      <ion-select type="text" formControlName="carModel" [(ngModel)]="carModel" placeholder="Choose Model ...">
+        <ion-select-option *ngFor="let model of models">{{model}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.carModel">
+        <div class="error-message" *ngIf="validations_form.get('carModel').hasError(validation.type) && (validations_form.get('carModel').dirty || validations_form.get('carModel').touched)">{{ validation.message }}</div>
+      </ng-container>
+    </div>
+
+    <!--wash type-->
+    <ion-radio-group [value]="washType">
+      <ion-list-header>
+        <ion-label color="primary">Wash Type: </ion-label>
+      </ion-list-header>
+    
+      <ion-item>
+        <ion-label color="primary">Inside</ion-label>
+        <ion-radio slot="start" value="inside" (click)="setWashType('inside')"></ion-radio>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label color="primary">Outside</ion-label>
+        <ion-radio slot="start" value="outside" (click)="setWashType('outside')"></ion-radio>
+      </ion-item>
+    
+      <ion-item>
+        <ion-label color="primary">Inside And Outside</ion-label>
+        <ion-radio slot="start" value="insideAndOutside" (click)="setWashType('insideAndOutside')"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+
+    <!--Adress-->
+    <ion-item>
+      <ion-label position="floating" color="primary">City</ion-label>
+      <ion-input type="text" formControlName="city"  [(ngModel)]="city"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.city">
+        <div class="error-message"
+          *ngIf="validations_form.get('city').hasError(validation.type) && (validations_form.get('city').dirty || validations_form.get('city').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <ion-item>
+      <ion-label position="floating" color="primary">Street</ion-label>
+      <ion-input type="text" formControlName="street" [(ngModel)]="street"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.street">
+        <div class="error-message"
+          *ngIf="validations_form.get('street').hasError(validation.type) && (validations_form.get('street').dirty || validations_form.get('street').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+    
+    <ion-item>
+      <ion-label position="floating" color="primary">Number</ion-label>
+      <ion-input type="text" formControlName="number" [(ngModel)]="number"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.number">
+        <div class="error-message"
+          *ngIf="validations_form.get('number').hasError(validation.type) && (validations_form.get('number').dirty || validations_form.get('number').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <!--price-->
+    <ion-item>
+      <ion-label position="floating" color="primary">Price</ion-label>
+      <ion-input type="number" formControlName="price" [(ngModel)]="price"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.price">
+        <div class="error-message"
+          *ngIf="validations_form.get('price').hasError(validation.type) && (validations_form.get('price').dirty || validations_form.get('price').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <!--date-->
+    <ion-item>
+      <ion-label color="primary">Date</ion-label>
+      <ion-input type="date" formControlName="date" [(ngModel)]="date"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.date">
+        <div class="error-message"
+          *ngIf="validations_form.get('date').hasError(validation.type) && (validations_form.get('date').dirty || validations_form.get('date').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <!--time-->
+    <ion-item>
+      <ion-label color="primary">Time</ion-label>
+      <ion-input type="time" formControlName="time" [(ngModel)]="time"></ion-input>
+    </ion-item>
+    <div class="validation-errors">
+      <ng-container *ngFor="let validation of validation_messages.time">
+        <div class="error-message"
+          *ngIf="validations_form.get('time').hasError(validation.type) && (validations_form.get('time').dirty || validations_form.get('time').touched)">
+          {{ validation.message }}
+        </div>
+      </ng-container>
+    </div>
+
+    <!--comments-->
+    <ion-item>
+      <ion-label color="primary">Comments</ion-label>
+      <ion-input type="text" formControlName="comments" [(ngModel)]="comments"></ion-input>
+    </ion-item>
+
+    <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Update Car</ion-button>
+  </form>
+</ion-content>

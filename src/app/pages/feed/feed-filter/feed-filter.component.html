@@ -1,0 +1,8 @@
+<div>
+  <ion-label style="text-align: center;" color="dark" slot="start" style="font-size: large;">{{distance}} Km</ion-label>
+  <ion-item>
+    <ion-range type="number" min="2" max="250" color="primary" [(ngModel)]="distance" >
+      <ion-button slot="end" (click)="filterDistance(distance)">Set</ion-button>>
+    </ion-range>
+  </ion-item>
+</div>

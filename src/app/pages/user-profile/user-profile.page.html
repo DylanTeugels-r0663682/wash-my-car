@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref='/tabs/calendar/requests'></ion-back-button>
+    </ion-buttons>
+    <ion-title>User Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+ 
+ <ion-content slot="fixed" *ngIf="loaded">
+   
+   <div class="card">
+      <div class="header">
+      <div class="avatar">
+         <img src="../../../assets/img/profile-pic.png" alt="">
+      </div>
+      </div>
+   </div>
+
+   <div class="card-body">
+    <div class="user-meta ion-text-center">
+      <h3 class="playername">{{user.username}}</h3>
+      <h5 class="country">{{user.address.city | titlecase}}</h5>
+      <h6 class="ranking" *ngIf="rating">Avarage Rating: <ion-chip>
+        <ion-label>{{rating}}</ion-label>
+        </ion-chip>
+      </h6>
+      <h6 class="ranking" *ngIf="!rating">Not rated yet</h6>
+    </div>
+  </div>
+
+  <ion-card *ngFor="let review of reviews">
+    <ion-card-header>
+      <ion-card-subtitle>From {{review.from}}</ion-card-subtitle>
+      <ion-card-title>Rating: {{review.rating}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{review.comment}}
+    </ion-card-content>
+  </ion-card>
+
+ </ion-content>

@@ -1,0 +1,26 @@
+.error-message
+{
+ color: var(--ion-color-danger);
+}
+
+.go-to-register
+{
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submit-btn
+{
+  margin-top: 40px;
+}
+
+:host {
+  ion-content {
+      --background: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
+  }
+}
+
+.paz {
+  position: relative;
+  z-index: 10;
+}

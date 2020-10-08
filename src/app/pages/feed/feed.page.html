@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar color='primary'>
+    <ion-title (ionChange)="setDistance()">Feed</ion-title>
+    <ion-buttons slot="primary">
+      <ion-button expand='block' (click)="handleButtonClick($event)">
+        <ion-icon slot="icon-only" name="filter"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="list-mini-content" padding >
+
+  <ion-refresher slot="fixed" (ionRefresh)="refreshFeed($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card *ngFor="let car of cars" color="primary"  tappable (click)="goMyCarsDetailPage(car)">
+
+    <ion-card-title style="height: 175px; max-height: 300px; overflow: hidden;" [id]='car.id'>
+      <ion-spinner id='{{car.id}}spinner' name="crescent" color="dark" style="top: 25%; left: 25%; height: 50%; width: 50%;"></ion-spinner>
+      <img (load)="onLoad(car)" [src]='car.imageURL'  style="border-radius: 5px 5px 0px 0px; width: fit-content; max-height: fit-content;"/>
+    </ion-card-title>
+    
+     <ion-card-header>
+      <ion-card-title style="font-weight: bold;">{{car.carBrand | titlecase}} {{car.carModel | titlecase}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row>
+        <ion-col>
+          <ion-label style="font-weight: bold;font-size: 14px;">Location:</ion-label><br>
+          <ion-label style="font-size: 12px;">{{car.city | titlecase}}</ion-label><br>
+          <ion-label style="font-weight: bold;font-size: 14px;">Date and Time:</ion-label><br>
+          <ion-label style="font-size: 12px;">{{car.date}}</ion-label><br>
+          <ion-label style="font-size: 12px;">{{car.time}}</ion-label><br>
+          <ion-label style="font-weight: bold;font-size: 14px;">Wash Type:</ion-label><br>
+          <ion-label style="font-size: 12px;">{{car.washType | titlecase}}</ion-label><br>
+        </ion-col>
+        <ion-col>
+          <ion-label style="font-size: 22px; position: absolute; bottom: 0; right: 0;">{{car.price | currency:'EUR'}}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="!cars || cars.length == 0" class="empty-list" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <ion-spinner name="crescent" color="dark" style="height: 100px; width: 100px; vertical-align: middle"></ion-spinner>
+    <p>Searching cars...</p>
+  </div>
+
+</ion-content>

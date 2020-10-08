@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref='/tabs/calendar'></ion-back-button>
+    </ion-buttons>
+    <ion-title>Review</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <form class="form" [formGroup]="validations_form" (ngSubmit)="submitReview(validations_form)">
+
+  <!--Rating-->
+  <ion-item>
+    <ion-label position="floating" color="primary">Rating (0-5)</ion-label>
+    <ion-input type="number" min="0" max="5" formControlName="rating"  [(ngModel)]="review.rating"></ion-input>
+  </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of validation_messages.rating">
+      <div class="error-message"
+        *ngIf="validations_form.get('rating').hasError(validation.type) && (validations_form.get('rating').dirty || validations_form.get('rating').touched)">
+        {{ validation.message }}
+      </div>
+    </ng-container>
+  </div>
+
+  <!--Comment-->
+  <ion-item>
+    <ion-label position="floating" color="primary">Comment</ion-label>
+    <ion-input type="text" formControlName="comment"  [(ngModel)]="review.comment"></ion-input>
+  </ion-item>
+  <div class="validation-errors">
+    <ng-container *ngFor="let validation of validation_messages.comment">
+      <div class="error-message"
+        *ngIf="validations_form.get('comment').hasError(validation.type) && (validations_form.get('rating').dirty || validations_form.get('comment').touched)">
+        {{ validation.message }}
+      </div>
+    </ng-container>
+  </div>
+
+  <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!validations_form.valid">Submit Review</ion-button>
+
+  </form>
+
+</ion-content>

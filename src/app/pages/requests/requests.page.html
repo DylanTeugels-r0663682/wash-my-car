@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref='/tabs/calendar'></ion-back-button>
+    </ion-buttons>
+    <ion-title>Requests</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card *ngFor="let request of requests">
+    <ion-item tappable (click)="selectRequest(request)">{{request.washer | titlecase}} wants to wash your car ({{request.car.carBrand | titlecase}} {{request.car.carModel | titlecase}}) 
+      on {{request.car.date}} at {{request.car.time}} for {{request.car.price | currency: "EUR"}}
+    </ion-item>
+    <ion-button (click)="goUserProfilePage(request.washerId)">See user's profile</ion-button>
+  </ion-card>
+</ion-content>
